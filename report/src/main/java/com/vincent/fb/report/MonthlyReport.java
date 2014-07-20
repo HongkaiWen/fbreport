@@ -18,6 +18,9 @@ import com.vincent.fb.report.util.CommonUtil;
 import com.vincent.fb.report.util.ExcelUtil;
 import com.vincent.fb.report.util.GroupByUtil;
 
+/**
+* main entry
+*/
 public class MonthlyReport {
 
 	public static void main(String[] args) throws Exception {
