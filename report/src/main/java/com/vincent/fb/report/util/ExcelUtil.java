@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -76,7 +77,7 @@ public class ExcelUtil {
 	
 	public static Double getTransportCreditCard(String monthStr) throws Exception{
 		String weiyunPath = CommonUtil.getValue("weiyunPath");
-		String calMonth = String.valueOf(Integer.valueOf(monthStr) - 1);
+		String calMonth = String.valueOf(Integer.valueOf(monthStr));
 		Date fromDate = CommonUtil.getJTStartDate(calMonth);
 		Date endDate = CommonUtil.getJTEndDate(calMonth);
 		Workbook wb = WorkbookFactory.create(new File(weiyunPath + "/fb/流水账.xlsx"));
@@ -94,13 +95,14 @@ public class ExcelUtil {
 				}
 			}
 			int month = (int) row.getCell(0).getNumericCellValue();
-			int day = (int) row.getCell(0).getNumericCellValue();
+			int day = (int) row.getCell(1).getNumericCellValue();
 			String year = "2014";
 			Date parseDate = CommonUtil.parseDate(String.format("%s/%s/%s", year, month, day));
+
 			if(parseDate.compareTo(fromDate) < 0 || parseDate.compareTo(endDate) > 0){
 				continue;
 			}
-			Cell cell6 = row.getCell(6);
+            Cell cell6 = row.getCell(6);
 			if(cell6 != null){
 				double amount = cell6.getNumericCellValue();
 				total = total.add(new BigDecimal(amount));
@@ -112,9 +114,10 @@ public class ExcelUtil {
 	public static Double getZSCreditCard(String monthStr) throws Exception{
 		String weiyunPath = CommonUtil.getValue("weiyunPath");
 		String calMonth = String.valueOf(Integer.valueOf(monthStr) - 1);
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 		Date fromDate = CommonUtil.getZSStartDate(calMonth);
 		Date endDate = CommonUtil.getZSEndDate(calMonth);
-		
+        System.out.println(sf.format(fromDate) + "     " + sf.format(endDate));
 		Workbook wb = WorkbookFactory.create(new File(weiyunPath + "/fb/流水账.xlsx"));
 		Sheet sheet1 = wb.getSheetAt(0);
 		BigDecimal total = new BigDecimal(0);
@@ -130,7 +133,7 @@ public class ExcelUtil {
 				}
 			}
 			int month = (int) row.getCell(0).getNumericCellValue();
-			int day = (int) row.getCell(0).getNumericCellValue();
+			int day = (int) row.getCell(1).getNumericCellValue();
 			String year = "2014";
 			Date parseDate = CommonUtil.parseDate(String.format("%s/%s/%s", year, month, day));
 			if(parseDate.compareTo(fromDate) < 0 || parseDate.compareTo(endDate) > 0){
@@ -139,6 +142,7 @@ public class ExcelUtil {
 			Cell cell6 = row.getCell(6);
 			if(cell6 != null){
 				double amount = cell6.getNumericCellValue();
+                System.out.println(sf.format(parseDate) + "   " + amount);
 				total = total.add(new BigDecimal(amount));
 			}
 	    }
@@ -181,4 +185,11 @@ public class ExcelUtil {
 		}
 		return result;
 	}
+
+    public static void main(String args[]) throws ParseException {
+        SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
+        Date tmp = sf.parse("20140607");
+        Date tmp2 = sf.parse("20140607");
+        System.out.println(tmp.compareTo(tmp2));
+    }
 }

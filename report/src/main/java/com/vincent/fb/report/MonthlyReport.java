@@ -49,7 +49,7 @@ public class MonthlyReport {
 			List<String> groupBys = new ArrayList<String>();
 			groupBys.add("month");
 			groupBys.add("day");
-			Map<String, String> groupBy = GroupByUtil.groupBy(groupBys, rowTO);
+			Map<String, String> groupBy = GroupByUtil.groupByAmount(groupBys, rowTO);
 			writer.write("\t分日统计:\r\n");
 			BigDecimal tot = new BigDecimal(0);
 			for (Entry<String, String> tmp : groupBy.entrySet()) {
@@ -81,7 +81,7 @@ public class MonthlyReport {
 			writer.write("\t分主题统计:\r\n");
 			groupBys.clear();
 			groupBys.add("subject");
-			groupBy = GroupByUtil.groupBy(groupBys, rowTO);
+			groupBy = GroupByUtil.groupByAmount(groupBys, rowTO);
 			for (Entry<String, String> tmp : groupBy.entrySet()) {
 				writer.write("\t\t" + tmp.getKey() + "  --  " + tmp.getValue()
 						+ "\r\n");
@@ -90,7 +90,7 @@ public class MonthlyReport {
 			writer.write("\t分类别统计:\r\n");
 			groupBys.clear();
 			groupBys.add("category");
-			groupBy = GroupByUtil.groupBy(groupBys, rowTO);
+			groupBy = GroupByUtil.groupByAmount(groupBys, rowTO);
 			for (Entry<String, String> tmp : groupBy.entrySet()) {
 				writer.write("\t\t" + tmp.getKey() + "  --  " + tmp.getValue()
 						+ "\r\n");
@@ -98,7 +98,7 @@ public class MonthlyReport {
 			writer.write("\t分人员统计:\r\n");
 			groupBys.clear();
 			groupBys.add("member");
-			groupBy = GroupByUtil.groupBy(groupBys, rowTO);
+			groupBy = GroupByUtil.groupByAmount(groupBys, rowTO);
 			for (Entry<String, String> tmp : groupBy.entrySet()) {
 				writer.write("\t\t" + tmp.getKey() + "  --  " + tmp.getValue()
 						+ "\r\n");
@@ -106,7 +106,7 @@ public class MonthlyReport {
 			writer.write("\t分方式统计:\r\n");
 			groupBys.clear();
 			groupBys.add("channel");
-			groupBy = GroupByUtil.groupBy(groupBys, rowTO);
+			groupBy = GroupByUtil.groupByAmount(groupBys, rowTO);
 			for (Entry<String, String> tmp : groupBy.entrySet()) {
 				writer.write("\t\t" + tmp.getKey() + "  --  " + tmp.getValue()
 						+ "\r\n");
@@ -114,7 +114,7 @@ public class MonthlyReport {
 			writer.write("\t分商户统计:\r\n");
 			groupBys.clear();
 			groupBys.add("merchant");
-			groupBy = GroupByUtil.groupBy(groupBys, rowTO);
+			groupBy = GroupByUtil.groupByAmount(groupBys, rowTO);
 			for (Entry<String, String> tmp : groupBy.entrySet()) {
 				
 				String merchantName = tmp.getKey();

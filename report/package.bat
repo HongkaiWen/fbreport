@@ -1,0 +1,1 @@
+G:\apache-maven-3.2.2\bin\mvn clean package

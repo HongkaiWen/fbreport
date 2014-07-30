@@ -11,6 +11,9 @@ import java.util.Date;
 import java.util.Properties;
 
 public class CommonUtil {
+
+    public static final String STARTDATE = "20140509";
+
 	public static Date getFromDate(String[] args) throws ParseException {
 		return getFirstDayofMonth(args[0]);
 	}
@@ -20,15 +23,20 @@ public class CommonUtil {
 	}
 
 	public static Date parseDate(String dateString) throws ParseException {
-		SimpleDateFormat sf = new SimpleDateFormat("yyyy/MM/dd");
-		try {
-			return sf.parse(dateString);
-		} catch (ParseException e) {
-			System.out.println("日期格式错误" + dateString);
-			throw e;
-		}
-	}
-	
+        return parseDate(dateString, "yyyy/MM/dd");
+
+    }
+
+    public static Date parseDate(String dateString, String format) throws ParseException {
+        SimpleDateFormat sf = new SimpleDateFormat(format);
+        try {
+            return sf.parse(dateString);
+        } catch (ParseException e) {
+            System.out.println("日期格式错误" + dateString);
+            throw e;
+        }
+    }
+
 	public static String formatDate(Date date) throws Exception{
 		SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
 		try {
@@ -59,7 +67,11 @@ public class CommonUtil {
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.YEAR, 2014);
 		cal.set(Calendar.MONTH, Integer.valueOf(month) - 2);
-		cal.set(Calendar.DAY_OF_MONTH, 21);
+		cal.set(Calendar.DAY_OF_MONTH, 20);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
 		return cal.getTime();
 	}
 	
@@ -68,6 +80,10 @@ public class CommonUtil {
 		cal.set(Calendar.YEAR, 2014);
 		cal.set(Calendar.MONTH, Integer.valueOf(month) - 1);
 		cal.set(Calendar.DAY_OF_MONTH, 20);
+        cal.set(Calendar.HOUR_OF_DAY, 23);
+        cal.set(Calendar.MINUTE, 59);
+        cal.set(Calendar.SECOND, 59);
+        cal.set(Calendar.MILLISECOND, 999);
 		return cal.getTime();
 	}
 	
@@ -75,7 +91,11 @@ public class CommonUtil {
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.YEAR, 2014);
 		cal.set(Calendar.MONTH, Integer.valueOf(month) - 2);
-		cal.set(Calendar.DAY_OF_MONTH, 8);
+		cal.set(Calendar.DAY_OF_MONTH, 7);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
 		return cal.getTime();
 	}
 	
@@ -84,6 +104,10 @@ public class CommonUtil {
 		cal.set(Calendar.YEAR, 2014);
 		cal.set(Calendar.MONTH, Integer.valueOf(month) - 1);
 		cal.set(Calendar.DAY_OF_MONTH, 7);
+        cal.set(Calendar.HOUR_OF_DAY, 23);
+        cal.set(Calendar.MINUTE, 59);
+        cal.set(Calendar.SECOND, 59);
+        cal.set(Calendar.MILLISECOND, 999);
 		return cal.getTime();
 	}
 	
@@ -104,6 +128,15 @@ public class CommonUtil {
 		}
 		return i == (Integer.valueOf(month) + 1) || i == (Integer.valueOf(month));
 	}
-	
+
+    public static long getTotalStatisticsDays() throws Exception{
+        long start = parseDate(STARTDATE, "yyyyMMdd").getTime();
+        long current = System.currentTimeMillis();
+       return ( current - start + 1000000)/(3600*24*1000);
+    }
+
+    public static void main(String args[]) throws Exception{
+        System.out.println(getTotalStatisticsDays());
+    }
 
 }
