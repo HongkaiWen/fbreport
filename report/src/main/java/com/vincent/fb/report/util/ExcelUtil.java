@@ -114,10 +114,8 @@ public class ExcelUtil {
 	public static Double getZSCreditCard(String monthStr) throws Exception{
 		String weiyunPath = CommonUtil.getValue("weiyunPath");
 		String calMonth = String.valueOf(Integer.valueOf(monthStr) - 1);
-        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 		Date fromDate = CommonUtil.getZSStartDate(calMonth);
 		Date endDate = CommonUtil.getZSEndDate(calMonth);
-        System.out.println(sf.format(fromDate) + "     " + sf.format(endDate));
 		Workbook wb = WorkbookFactory.create(new File(weiyunPath + "/fb/流水账.xlsx"));
 		Sheet sheet1 = wb.getSheetAt(0);
 		BigDecimal total = new BigDecimal(0);
@@ -142,7 +140,6 @@ public class ExcelUtil {
 			Cell cell6 = row.getCell(6);
 			if(cell6 != null){
 				double amount = cell6.getNumericCellValue();
-                System.out.println(sf.format(parseDate) + "   " + amount);
 				total = total.add(new BigDecimal(amount));
 			}
 	    }
@@ -186,10 +183,5 @@ public class ExcelUtil {
 		return result;
 	}
 
-    public static void main(String args[]) throws ParseException {
-        SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
-        Date tmp = sf.parse("20140607");
-        Date tmp2 = sf.parse("20140607");
-        System.out.println(tmp.compareTo(tmp2));
-    }
+
 }
